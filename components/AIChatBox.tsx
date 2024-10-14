@@ -1,5 +1,5 @@
 import React from "react";
-import { useChat } from "ai/react";
+import { Message, useChat } from "ai/react";
 import { cn } from "@/lib/utils";
 import { XCircle } from "lucide-react";
 import { Input } from "./ui/input";
@@ -19,7 +19,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
     setMessages,
     isLoading,
     error,
-  } = useChat();
+  } = useChat(); //  /api/chat
 
   return (
     <div
@@ -32,18 +32,31 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
         <XCircle size={30} />
       </button>
       <div className="flex h-[600px] flex-col rounded bg-background border shadow-xl">
-        <div className="h-full">Messages</div>
+        <div className="h-full overflow-y-auto">
+          {messages.map((message) => (
+            <ChatMessage message={message} key={message.id} />
+          ))}
+        </div>
         <form onSubmit={handleSubmit} className="m-3 flex gap-1">
           <Input 
             value={input}
             onChange={handleInputChange}
-            placeholder="Say someting..."
+            placeholder="Say something..."
           />
-          <Button type="submit">
+          <Button type="submit" disabled={isLoading}>
             Send
           </Button>
         </form>
       </div>
+    </div>
+  );
+};
+
+export const ChatMessage = ({ message: { role, content } }: { message: Message }) => {
+  return (
+    <div className={`mb-3 ${role === 'assistant' ? 'text-blue-500' : 'text-gray-800'}`}>
+      <div className="font-semibold">{role === 'assistant' ? 'AI' : 'You'}</div>
+      <div>{content}</div>
     </div>
   );
 };
