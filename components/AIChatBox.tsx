@@ -36,7 +36,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
     }
   }, [open]);
 
-  const lastMessageIsUser = messages[messages.length - 1]?.role === "user"
+  const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
   return (
     <div
@@ -54,16 +54,35 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
             <ChatMessage message={message} key={message.id} />
           ))}
 
+          {isLoading && lastMessageIsUser && (
+            <ChatMessage
+              message={{
+                role: "assistant",
+                content: "Thinking...",
+              }}
+            />
+          )}
+
           {
-            isLoading && lastMessageIsUser && (
+            error && (
               <ChatMessage 
                 message={{
                   role: "assistant",
-                  content: "Thinking..."
+                  content: "Something went wrong, please try again."
                 }}
               />
-              )
+            )
           }
+
+          {
+            !error && messages.length === 0 && (
+              <div className="flex h-full items-center justify-center gap-3">
+                <Bot />
+                Send a "Hi" to the chatbot to get started 
+              </div>
+            )
+          }
+
         </div>
         <form onSubmit={handleSubmit} className="m-3 flex gap-1">
           <Button
