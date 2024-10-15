@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Message, useChat } from "ai/react";
 import { cn } from "@/lib/utils";
-import { Bot, Trash, XCircle } from "lucide-react";
+import { Bot, Check, CheckCircle, CheckSquare, Trash, XCircle } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
@@ -41,7 +41,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
   return (
     <div
       className={cn(
-        "bottom-0 right-0 z-10 w-full max-w-[500px] p-1 xl:right-36",
+        "absolute z-10 w-full max-w-[500px] p-1 xl:right-36 mt-5",
         open ? "fixed" : "hidden"
       )}
     >
@@ -85,6 +85,16 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
 
         </div>
         <form onSubmit={handleSubmit} className="m-3 flex gap-1">
+        <Button
+            title="Confirm"
+            style={{ backgroundColor: "green", color: "white" }}
+            size="icon"
+            className="shrink-0"
+            type="button"
+            
+          >
+            <Check />
+          </Button>
           <Button
             title="Clear chat"
             variant="outline"

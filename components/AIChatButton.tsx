@@ -13,7 +13,7 @@ const AIChatButton = () => {
     <>
       <Button onClick={() => setChatBoxOpen(true)}>
         <Bot size={20} className="mr-2"/>
-        AI Chat
+        Tell us about your condition.
     </Button>
       <AIChatBox open={chatBoxOpen} onClose={() => setChatBoxOpen(false)} />
     </>
