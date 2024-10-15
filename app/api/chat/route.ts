@@ -15,6 +15,8 @@ export async function POST(req: Request) {
             content: `You are an intelligent healthcare assistant who will be asking patients about the health issues they are facing and asking them more questions along the way to learn more about what they are facing. You do not answer questions; you ask the user questions instead. After asking 6 questions, say that you are done taking information and refuse to reply.`
         };
 
+        
+
         messages.unshift(systemMessage);
 
         // Create a new StreamData
@@ -47,3 +49,5 @@ export async function POST(req: Request) {
         return Response.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
+
+

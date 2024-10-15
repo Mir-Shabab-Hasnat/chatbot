@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from "react";
+"use client"
+
+import React, { useEffect, useRef, useState } from "react";
 import { Message, useChat } from "ai/react";
 import { cn } from "@/lib/utils";
 import { Bot, Check, Trash, XCircle } from "lucide-react";
@@ -24,6 +26,8 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const [submittedMessages, setSubmittedMessages] = useState<string[]>([])
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -38,10 +42,12 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
 
   const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
+ 
+
   return (
     <div
       className={cn(
-        "transition-all duration-300 ease-in-out", // Smoothly transition when opening
+        "transition-all duration-300 ease-in-out mb-5", // Smoothly transition when opening
         open ? "block" : "hidden"
       )}
     >
@@ -91,6 +97,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
             size="icon"
             className="shrink-0"
             type="button"
+            
           >
             <Check />
           </Button>
