@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Message, useChat } from "ai/react";
 import { cn } from "@/lib/utils";
-import { Bot, Check, CheckCircle, CheckSquare, Trash, XCircle } from "lucide-react";
+import { Bot, Check, Trash, XCircle } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
@@ -19,7 +19,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
     setMessages,
     isLoading,
     error,
-  } = useChat(); //  /api/chat
+  } = useChat(); // Assuming a hook for chat messages
 
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -41,14 +41,14 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
   return (
     <div
       className={cn(
-        "absolute z-10 w-full max-w-[500px] p-1 xl:right-36 mt-5",
-        open ? "fixed" : "hidden"
+        "transition-all duration-300 ease-in-out", // Smoothly transition when opening
+        open ? "block" : "hidden"
       )}
     >
       <button onClick={onClose} className="mb-1 ms-auto block">
         <XCircle size={30} />
       </button>
-      <div className="flex h-[600px] flex-col rounded bg-background border shadow-xl p-3">
+      <div className="flex h-[600px] w-auto sm:w-[500px] flex-col rounded bg-background border shadow-xl p-3">
         <div className="h-full mt-3 px-3 overflow-y-auto" ref={scrollRef}>
           {messages.map((message) => (
             <ChatMessage message={message} key={message.id} />
@@ -67,8 +67,8 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
             error && (
               <ChatMessage 
                 message={{
-                  role: "assistant",
-                  content: "Something went wrong, please try again."
+                role: "assistant",
+                content: "Something went wrong, please try again."
                 }}
               />
             )
@@ -84,14 +84,13 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
           }
 
         </div>
-        <form onSubmit={handleSubmit} className="m-3 flex gap-1">
-        <Button
+        <form onSubmit={handleSubmit} className="m-3 flex flex-col sm:flex-row gap-1">
+          <Button
             title="Confirm"
             style={{ backgroundColor: "green", color: "white" }}
             size="icon"
             className="shrink-0"
             type="button"
-            
           >
             <Check />
           </Button>
@@ -149,3 +148,4 @@ export const ChatMessage = ({
 };
 
 export default AIChatBox;
+
