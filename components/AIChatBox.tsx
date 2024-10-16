@@ -14,6 +14,7 @@ interface AIChatBoxProps {
 
 const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
   const {
+    
     messages,
     input,
     handleInputChange,
@@ -97,6 +98,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
             size="icon"
             className="shrink-0"
             type="button"
+            onClick={() => console.log(messages)}
             
           >
             <Check />
