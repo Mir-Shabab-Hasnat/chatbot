@@ -19,8 +19,8 @@ export async function GET(request: Request) {
         model: "gpt-4o-mini",
             messages: [
               {
-                role: "system",
-                content: "You are a healthcare assistant that provides structured responses in JSON format. Please provide a healthcare assessment in the following structured format: Issue: (The primary health concern), symptom: (List the symptoms), Medication: (any medication the patient is using), Others: (Additional notes or observation), Severity: (a number between the range 1-99 that you will give by assessing the patient's situation)"
+                "role": "system",
+                "content": "You are a healthcare assistant that provides structured responses in JSON format. The 'Severity' field must be based on the following criteria: 1-30: Mild symptoms that can be managed at home. 31-60: Moderate symptoms that may require over-the-counter treatment or a doctor's visit. 61-99: Severe symptoms that require immediate medical attention. Make sure the severity is based on the symptom duration, type, and intensity. Use all available patient information to assess severity. Format the response as follows: {issue: (The primary health concern), symptom: (List the symptoms), Medication: (any medication the patient is using), Others: (Additional notes or observation), Severity: (a number between 1-99)}"
               },
               { role: "user", content: "I have a cold, with a runny nose and cough, it has been going on for 7 days, and I am not taking any medication" }
             ],
