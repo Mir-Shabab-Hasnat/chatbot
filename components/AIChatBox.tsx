@@ -27,7 +27,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const [submittedMessages, setSubmittedMessages] = useState<string[]>([])
+  const [submittedMessages, setSubmittedMessages] = useState<string>();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -43,7 +43,22 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
 
   const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
- 
+  const handleCheckClick = () => {
+    const formattedMessages = messages.map(message => {
+      const prefix = message.role === "user" ? "Patient: " : "AI: ";
+      return `${prefix}${message.content},`;
+    }).join('\n');
+
+    // Outputting the result to the console (you can change this as needed)
+    console.log(formattedMessages);
+    // Alternatively, you could set this formatted string to the component state to display it in the UI
+    setSubmittedMessages(formattedMessages)
+    onClose()
+    setMessages([])
+
+
+  };
+
 
   return (
     <div
@@ -98,7 +113,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
             size="icon"
             className="shrink-0"
             type="button"
-            onClick={() => console.log(messages)}
+            onClick={handleCheckClick}
             
           >
             <Check />
@@ -124,6 +139,7 @@ const AIChatBox = ({ open, onClose }: AIChatBoxProps) => {
           </Button>
         </form>
       </div>
+      {submittedMessages}
     </div>
   );
 };
